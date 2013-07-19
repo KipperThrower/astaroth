@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.dao;
+package pl.kipperthrower.astaroth.core.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;

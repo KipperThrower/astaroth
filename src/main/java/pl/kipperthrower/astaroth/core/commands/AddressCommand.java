@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.domain;
+package pl.kipperthrower.astaroth.core.commands;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author chad
  *
  */
-public class Address {
+public class AddressCommand {
 
 	private String firstName;
 	private String lastName;

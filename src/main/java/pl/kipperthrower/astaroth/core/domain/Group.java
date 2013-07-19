@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.domain;
+package pl.kipperthrower.astaroth.core.domain;
 
 import java.util.List;
 
@@ -9,15 +9,18 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import pl.kipperthrower.astaroth.domain.User;
+import pl.kipperthrower.astaroth.core.domain.User;
 
 @Entity
-@Table(name="Groups")
+@Table(name="groups")
 public class Group extends AbstractEntity implements GrantedAuthority {
-
+	
+	public static final String ROLE_USER = "ROLE_USER";
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	
 	private static final long serialVersionUID = 1L;
 	
-	@Column
+	@Column(nullable = false)
 	private String name;
     @ManyToMany(mappedBy="groups")
 	private List<User> users;

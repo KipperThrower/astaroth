@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.services;
+package pl.kipperthrower.astaroth.core.services;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 
-import pl.kipperthrower.astaroth.dao.DaoFactory;
-import pl.kipperthrower.astaroth.domain.Group;
-import pl.kipperthrower.astaroth.domain.User;
+import pl.kipperthrower.astaroth.core.dao.DaoFactory;
+import pl.kipperthrower.astaroth.core.domain.Group;
+import pl.kipperthrower.astaroth.core.domain.User;
 
 @Service("userService")
 public class UserService  {
@@ -21,7 +21,7 @@ public class UserService  {
 	private DaoFactory daoFactory;
 	
 	public User findByUsername(String username) {
-		User user = daoFactory.getDao(User.class).findOneByCriteria(Restrictions.eq("username",  username));
+		User user = daoFactory.getDao(User.class).findOneByCriteria(Restrictions.eq(User.USERNAME,  username));
 		return user;
 	}
 	

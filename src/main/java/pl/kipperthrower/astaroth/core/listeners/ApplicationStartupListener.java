@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.tasks;
+package pl.kipperthrower.astaroth.core.listeners;
 
 import java.util.ArrayList;
 
@@ -9,54 +9,57 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.kipperthrower.astaroth.domain.Group;
-import pl.kipperthrower.astaroth.domain.User;
-import pl.kipperthrower.astaroth.services.UserService;
+import pl.kipperthrower.astaroth.core.domain.Group;
+import pl.kipperthrower.astaroth.core.domain.User;
+import pl.kipperthrower.astaroth.core.services.UserService;
 
 import freemarker.log.Logger;
 
 @Component
-public class OnStartup implements ApplicationListener<ContextRefreshedEvent> {
+public class ApplicationStartupListener implements
+		ApplicationListener<ContextRefreshedEvent> {
 
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 
-	@Value( "#{wiringProperties['default.admin.username']}" )
+	@Value("#{wiringProperties['default.admin.username']}")
 	private String defaultAdminUsername;
-	@Value( "#{wiringProperties['default.admin.password']}" )
+	@Value("#{wiringProperties['default.admin.password']}")
 	private String defaultAdminPassword;
-	@Value( "#{wiringProperties['default.admin.installOnStartup']}" )
+	@Value("#{wiringProperties['default.admin.installOnStartup']}")
 	private boolean installDefaultAdminUser;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		
-		if ( installDefaultAdminUser && defaultAdminUsername != null && defaultAdminPassword != null ) {
-				
+
+		if (installDefaultAdminUser && defaultAdminUsername != null
+				&& defaultAdminPassword != null) {
+
 			User admin = userService.findByUsername("admin");
-			
+
 			if (admin == null) {
-				
+
 				admin = new User();
 				admin.setUsername(defaultAdminUsername);
 				admin.setPassword(defaultAdminPassword);
-			
+
 				Group userGroup = new Group();
 				userGroup.setName("ROLE_USER");
 				userService.installNewGroup(userGroup);
-			
+
 				Group adminGroup = new Group();
 				adminGroup.setName("ROLE_ADMIN");
 				userService.installNewGroup(adminGroup);
-			
-				admin.setGroups( new ArrayList<Group>(2));
+
+				admin.setGroups(new ArrayList<Group>(2));
 				admin.getGroups().add(userGroup);
 				admin.getGroups().add(adminGroup);
-			
+
 				userService.installNewUser(admin);
-				log.info("Installed default admin account with username="+defaultAdminUsername);
+				log.info("Installed default admin account with username="
+						+ defaultAdminUsername);
 			}
 		}
 	}

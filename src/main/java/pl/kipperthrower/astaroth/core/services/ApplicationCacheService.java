@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.services;
+package pl.kipperthrower.astaroth.core.services;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -7,28 +7,30 @@ import org.springframework.stereotype.Service;
 
 @Service("cache")
 public class ApplicationCacheService {
+	
+	private static final String GENERAL_USE_CACHE = "generalUseCache";
 
 	public void put(String key, Object item) {
 		CacheManager cacheManager = CacheManager.getInstance();
-		Cache cache = cacheManager.getCache("generalUseCache");
+		Cache cache = cacheManager.getCache(GENERAL_USE_CACHE);
 		cache.put(new Element(key,item));
 	}
 	
 	public Object get(String key) {
 		CacheManager cacheManager = CacheManager.getInstance();
-		Cache cache = cacheManager.getCache("generalUseCache");
+		Cache cache = cacheManager.getCache(GENERAL_USE_CACHE);
 		return cache.get(key).getObjectValue();
 	}
 	
 	public void delete(String key) {
 		CacheManager cacheManager = CacheManager.getInstance();
-		Cache cache = cacheManager.getCache("generalUseCache");
+		Cache cache = cacheManager.getCache(GENERAL_USE_CACHE);
 		cache.remove(key);
 	}
 	
 	public void clear() {
 		CacheManager cacheManager = CacheManager.getInstance();
-		Cache cache = cacheManager.getCache("generalUseCache");
+		Cache cache = cacheManager.getCache(GENERAL_USE_CACHE);
 		cache.removeAll();
 	}
 }

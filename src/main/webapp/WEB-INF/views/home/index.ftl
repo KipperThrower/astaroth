@@ -1,7 +1,8 @@
-<#include "../include/header.ftl"/>
+[#ftl]
+[#include "../include/header.ftl"/]
 	<div class="container">
 
-		<#if RequestParameters['authfail']??>
+		[#if RequestParameters['authfail']??]
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-error">
@@ -9,8 +10,8 @@
 					</div>
 				</div>
 			</div>
-		</#if>
-		<#if RequestParameters['accessdenied']??>
+		[/#if]
+		[#if RequestParameters['accessdenied']??]
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-error">
@@ -18,8 +19,8 @@
 					</div>
 				</div>
 			</div>
-		</#if>
-		<#if RequestParameters['login']??>
+		[/#if]
+		[#if RequestParameters['login']??]
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-warning">
@@ -27,8 +28,8 @@
 					</div>
 				</div>
 			</div>
-		</#if>
-		<#if RequestParameters['loggedout']??>
+		[/#if]
+		[#if RequestParameters['loggedout']??]
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-success">
@@ -36,7 +37,7 @@
 					</div>
 				</div>
 			</div>
-		</#if>
+		[/#if]
 			
 		<div class="row">
 			<div class="span12">
@@ -50,4 +51,4 @@
 			<p>Built with Maven profile ${buildEnv}</p>
 		</footer>
 	</div> <!-- /container -->
-<#include "../include/footer.ftl"/>
+[#include "../include/footer.ftl"/]

@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.domain;
+package pl.kipperthrower.astaroth.core.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,28 +9,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
+@Table(name = "users")
 public class User extends AbstractEntity implements UserDetails {
+	
+	public static final String USERNAME = "username";
 
 	private static final long serialVersionUID = 1L;
 
-	@Column
+	@Column(nullable = false, unique = true)
 	private String username;
-	@Column
+	@Column(nullable = false)
 	private String password;
-	@Column
+	@Column(nullable = false)
 	private String salt;
-	@Column
+	@Column(nullable = false)
 	private boolean enabled = true;
-	@Column
+	@Column(nullable = false)
 	private boolean accountNonExpired = true;
-	@Column
+	@Column(nullable = false)
 	private boolean credentialsNonExpired = true;
-	@Column
+	@Column(nullable = false)
 	private boolean accountNonLocked = true;
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)

@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.dao;
+package pl.kipperthrower.astaroth.core.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

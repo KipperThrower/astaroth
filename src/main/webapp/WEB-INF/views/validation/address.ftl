@@ -1,4 +1,5 @@
-<#include "../include/header.ftl"/>
+[#ftl]
+[#include "../include/header.ftl"/]
 	<div class="container">
 		<div class="row">
 			<div class="span12">
@@ -13,12 +14,12 @@
 			</div>
 		</div>
 	
-	<#if success?? >
+	[#if success?? ]
 		<strong>${success}</strong>
-	</#if>
+	[/#if]
 
 	<div class="row-fluid">
-		<form method="POST" action="<@spring.url value="/validation/address.html"/>" >
+		<form method="POST" action="[@spring.url value="/validation/address.html"/]" >
 		    <fieldset>
 				<div id="legend">
 	 				<legend class="">Address</legend>
@@ -45,8 +46,8 @@
 					</div>
 				</div>
 
-				<#assign cityError><@form.errors path="address.city" element="span" cssClass="help-inline"/></#assign>
-				<div class="control-group <#if cityError?has_content>error</#if>">
+				[#assign cityError]<@form.errors path="address.city" element="span" cssClass="help-inline"/>[/#assign]
+				<div class="control-group [#if cityError?has_content]error[/#if]">
 					<label class="control-label" for="city"><span style="color:red">* </span>City</label>
 					<input type="text" id="city" name="city" placeholder="" value="${(address.city)!}" class="input-xlarge">
 					${cityError}
@@ -77,4 +78,4 @@
 	</div>
 
 	</div> <!-- /container -->
-<#include "../include/footer.ftl"/>
+[#include "../include/footer.ftl"/]

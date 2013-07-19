@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.controllers;
+package pl.kipperthrower.astaroth.core.controllers;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import pl.kipperthrower.astaroth.services.ApplicationCacheService;
+import pl.kipperthrower.astaroth.core.services.ApplicationCacheService;
 
 import freemarker.log.Logger;
 

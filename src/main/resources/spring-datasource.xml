@@ -25,7 +25,9 @@
         <property name="dataSource" ref="dataSource" />
         <property name="packagesToScan">
         	<list>
-        		<value>pl.kipperthrower.astaroth.domain</value>
+        		<value>pl.kipperthrower.astaroth.core.domain</value>
+        		<value>pl.kipperthrower.astaroth.stock.domain</value>
+        		<value>pl.kipperthrower.astaroth.ai.domain</value>
         	</list>
          </property>
         <property name="hibernateProperties">

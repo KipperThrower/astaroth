@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.domain;
+package pl.kipperthrower.astaroth.core.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

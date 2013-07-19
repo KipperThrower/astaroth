@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.dao;
+package pl.kipperthrower.astaroth.core.dao;
 
 public interface DaoFactory {
 
