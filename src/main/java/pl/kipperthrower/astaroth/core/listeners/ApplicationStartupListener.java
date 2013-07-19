@@ -37,7 +37,7 @@ public class ApplicationStartupListener implements
 		if (installDefaultAdminUser && defaultAdminUsername != null
 				&& defaultAdminPassword != null) {
 
-			User admin = userService.findByUsername("admin");
+			User admin = userService.findByUsername(defaultAdminUsername);
 
 			if (admin == null) {
 
@@ -46,11 +46,11 @@ public class ApplicationStartupListener implements
 				admin.setPassword(defaultAdminPassword);
 
 				Group userGroup = new Group();
-				userGroup.setName("ROLE_USER");
+				userGroup.setName(Group.ROLE_USER);
 				userService.installNewGroup(userGroup);
 
 				Group adminGroup = new Group();
-				adminGroup.setName("ROLE_ADMIN");
+				adminGroup.setName(Group.ROLE_ADMIN);
 				userService.installNewGroup(adminGroup);
 
 				admin.setGroups(new ArrayList<Group>(2));

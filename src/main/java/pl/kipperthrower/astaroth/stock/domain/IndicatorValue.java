@@ -1,5 +1,12 @@
 package pl.kipperthrower.astaroth.stock.domain;
 
-public class IndicatorValue {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import pl.kipperthrower.astaroth.core.domain.AbstractEntity;
+
+@Entity
+@Table(name = "indicator_values")
+public class IndicatorValue extends AbstractEntity {
 
 }

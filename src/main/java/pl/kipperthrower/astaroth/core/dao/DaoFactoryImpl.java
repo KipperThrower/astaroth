@@ -9,7 +9,7 @@ public class DaoFactoryImpl implements DaoFactory {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public <T> BaseDaoImpl<T> getDao(Class<T> type) {
 		BaseDaoImpl<T> daoImpl = new BaseDaoImpl<T>(type);
@@ -23,7 +23,6 @@ public class DaoFactoryImpl implements DaoFactory {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	} 	
-	
-	
+	}
+
 }

@@ -40,8 +40,8 @@ public class AuthenticationListener implements
 		daoFactory.getDao(AuthenticationEvent.class).save(authEvent);
 
 		String auditMessage = "Login attempt with username: "
-				+ authEvent.getUsername() + "\tSuccess: "
-				+ authEvent.isAuthenticated() + "\tIP: "
+				+ authEvent.getUsername() + " Success: "
+				+ authEvent.isAuthenticated() + " IP: "
 				+ authEvent.getIpAddress();
 		LOGGER.info(auditMessage);
 	}
@@ -57,6 +57,7 @@ public class AuthenticationListener implements
 			WebAuthenticationDetails details = (WebAuthenticationDetails) authentication
 					.getDetails();
 			event.setIpAddress(details.getRemoteAddress());
+			event.setSessionId(details.getSessionId());
 		}
 		return event;
 	}

@@ -16,8 +16,10 @@ public class AuthenticationEvent extends AbstractEntity {
 	private String username;
 	@Column(nullable = false)
 	private Date date;
-	@Column(nullable = false)
+	@Column
 	private String ipAddress;
+	@Column
+	private String sessionId;
 	@Column(nullable = false)
 	private boolean authenticated;
 
@@ -52,6 +54,14 @@ public class AuthenticationEvent extends AbstractEntity {
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
+	
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
 
 	public boolean isAuthenticated() {
 		return authenticated;
@@ -60,5 +70,7 @@ public class AuthenticationEvent extends AbstractEntity {
 	public void setAuthenticated(boolean authenticated) {
 		this.authenticated = authenticated;
 	}
+
+	
 
 }
