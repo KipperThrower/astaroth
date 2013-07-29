@@ -1,15 +1,12 @@
 package pl.kipperthrower.astaroth.core.dao;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface BaseDao<T> {
-	T save(T entity);
-
-	Collection<T> saveAll(Collection<T> entities);
+public interface BaseDao<T> extends PagingAndSortingRepository<T, Long> {
 
 	T findById(Long id);
 
@@ -29,15 +26,6 @@ public interface BaseDao<T> {
 
 	List<T> findAllByCriteriaDistinctWithOrder(Order order,
 			Criterion... criteria);
-
-	void deleteAll(Collection<T> entities);
-
-	/**
-	 * Deletes all rows from the Object Table
-	 * 
-	 * @return
-	 */
-	int truncateTable();
 
 	long count();
 

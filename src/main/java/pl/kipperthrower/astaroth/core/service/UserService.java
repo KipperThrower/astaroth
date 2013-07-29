@@ -11,6 +11,9 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+
 import pl.kipperthrower.astaroth.core.dao.DaoFactory;
 import pl.kipperthrower.astaroth.core.domain.Group;
 import pl.kipperthrower.astaroth.core.domain.User;
@@ -52,9 +55,23 @@ public class UserService {
 	}
 	
 	@Transactional
+	public void lockUser(String name) {
+		User user = findByUsername(name);
+		if (user != null) {
+			user.setAccountNonLocked(false);
+		}
+		daoFactory.getDao(User.class).save(user);
+	}
+	
+	@Transactional
 	public List<User> getAllLoggedUsers() {
-		sessionRegistry.getAllPrincipals();
-		return null;
+		return Lists.transform(sessionRegistry.getAllPrincipals(), new Function<Object, User>() {
+
+			@Override
+			public User apply(Object input) {
+				return (User) input;
+			}
+		});
 	}
 
 }

@@ -17,6 +17,7 @@ public class Group extends AbstractEntity implements GrantedAuthority {
 	
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	public static final String ROLE_GOD = "ROLE_GOD";
 	
 	private static final long serialVersionUID = 1L;
 	

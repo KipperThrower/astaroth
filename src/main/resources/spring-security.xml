@@ -20,7 +20,7 @@
 		<security:intercept-url pattern="/doChangeLocale**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		
 		<security:custom-filter position="SWITCH_USER_FILTER" ref="switchUserProcessingFilter" />
-    	<security:intercept-url pattern="/j_spring_security_switch_user" access="ROLE_ADMIN"/>
+    	<security:intercept-url pattern="/j_spring_security_switch_user" access="ROLE_GOD"/>
     	
 		<security:intercept-url pattern="/**" access="ROLE_USER" />
 	

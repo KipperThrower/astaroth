@@ -14,10 +14,14 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @SuppressWarnings("unchecked")
 public class BaseDaoImpl<T> implements BaseDao<T> {
-	private static final Logger log = Logger.getLogger(BaseDaoImpl.class);
+	
+	private static final Logger LOGGER = Logger.getLogger(BaseDaoImpl.class);
 
 	private Class<T> persistentClass;
 
@@ -51,42 +55,14 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return c;
 	}
 
-	public T save(T entity) {
+	public <S extends T> S save(S entity) {
 		try {
 			getSession().saveOrUpdate(entity);
 			return entity;
 		} catch (ConstraintViolationException ex) {
-			log.warn(ex);
+			LOGGER.warn(ex);
 			return null;
 		}
-	}
-
-	public Collection<T> saveAll(Collection<T> entities) {
-		Collection<T> results = new ArrayList<T>();
-		for (T eachEntity : entities) {
-			T result = this.save(eachEntity);
-			if (result != null) {
-				results.add(result);
-			}
-		}
-		return entities;
-	}
-
-	public void delete(T entity) {
-		getSession().delete(entity);
-	}
-
-	public void deleteAll(Collection<T> entities) {
-		for (T eachEntity : entities) {
-			this.delete(eachEntity);
-		}
-	}
-
-	public int truncateTable() {
-		String hql = String.format("delete from %s", getPersistentClass()
-				.getSimpleName());
-		Query query = getSession().createQuery(hql);
-		return query.executeUpdate();
 	}
 
 	public T findById(Long id) {
@@ -141,6 +117,73 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public List<T> findAllDistinctWithOrder(Order order) {
 		return createCriteria().addOrder(order)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
+	@Override
+	public Iterable<T> findAll(Sort sort) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<T> findAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void delete(T entity) {
+		getSession().delete(entity);
+	}
+
+	@Override
+	public void delete(Iterable<? extends T> entities) {
+		for (T eachEntity : entities) {
+			this.delete(eachEntity);
+		}
+	}
+	
+
+	@Override
+	public void deleteAll() {
+		String hql = String.format("delete from %s", getPersistentClass()
+				.getSimpleName());
+		Query query = getSession().createQuery(hql);
+		query.executeUpdate();
+	}
+
+	@Override
+	public boolean exists(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Iterable<T> findAll(Iterable<Long> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public T findOne(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends T> Iterable<S> save(Iterable<S> entities) {
+		Collection<T> results = new ArrayList<T>();
+		for (T eachEntity : entities) {
+			T result = this.save(eachEntity);
+			if (result != null) {
+				results.add(result);
+			}
+		}
+		return entities;
 	}
 
 }

@@ -22,6 +22,12 @@ public class AuthenticationEvent extends AbstractEntity {
 	private String sessionId;
 	@Column(nullable = false)
 	private boolean authenticated;
+	@Column
+	private String eventType;
+	@Column
+	private boolean isSwitch;
+	@Column
+	private User targetUser;
 
 	public User getUser() {
 		return user;
@@ -54,7 +60,7 @@ public class AuthenticationEvent extends AbstractEntity {
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
-	
+
 	public String getSessionId() {
 		return sessionId;
 	}
@@ -71,6 +77,28 @@ public class AuthenticationEvent extends AbstractEntity {
 		this.authenticated = authenticated;
 	}
 
-	
+	public String getEventType() {
+		return eventType;
+	}
+
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
+	}
+
+	public boolean isSwitch() {
+		return isSwitch;
+	}
+
+	public void setSwitch(boolean isSwitch) {
+		this.isSwitch = isSwitch;
+	}
+
+	public User getTargetUser() {
+		return targetUser;
+	}
+
+	public void setTargetUser(User targetUser) {
+		this.targetUser = targetUser;
+	}
 
 }

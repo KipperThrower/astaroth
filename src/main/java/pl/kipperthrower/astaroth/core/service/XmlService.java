@@ -21,8 +21,7 @@ public class XmlService {
 		try {
 			JAXBContext jc = JAXBContext.newInstance(clazz);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			StreamSource source = new StreamSource(file);
-			return (T) unmarshaller.unmarshal(source);
+			return (T) unmarshaller.unmarshal(new StreamSource(file));
 		} catch (JAXBException e) {
 			LOGGER.error(e, e);
 			return null;

@@ -53,10 +53,15 @@ public class ApplicationStartupListener implements
 				Group adminGroup = new Group();
 				adminGroup.setName(Group.ROLE_ADMIN);
 				userService.installNewGroup(adminGroup);
+				
+				Group godGroup = new Group();
+				godGroup.setName(Group.ROLE_GOD);
+				userService.installNewGroup(godGroup);
 
-				admin.setGroups(new ArrayList<Group>(2));
+				admin.setGroups(new ArrayList<Group>(3));
 				admin.getGroups().add(userGroup);
 				admin.getGroups().add(adminGroup);
+				admin.getGroups().add(godGroup);
 
 				userService.installNewUser(admin);
 				log.info("Installed default admin account with username="

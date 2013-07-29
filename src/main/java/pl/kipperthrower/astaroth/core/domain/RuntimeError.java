@@ -25,6 +25,12 @@ public class RuntimeError extends AbstractEntity {
 	private String ip;
 	@Column(name = "http_method")
 	private String httpMethod;
+	@Column(name = "query_string")
+	private String queryString;
+	@Column
+	private String body;
+	@Column
+	private String charset;
 
 	public Date getDate() {
 		return date;
@@ -80,6 +86,30 @@ public class RuntimeError extends AbstractEntity {
 
 	public void setHttpMethod(String httpMethod) {
 		this.httpMethod = httpMethod;
+	}
+
+	public String getQueryString() {
+		return queryString;
+	}
+
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public String getCharset() {
+		return charset;
+	}
+
+	public void setCharset(String charset) {
+		this.charset = charset;
 	}
 
 }
