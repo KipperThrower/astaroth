@@ -1,33 +1,50 @@
-package pl.kipperthrower.astaroth.core.controllers;
+package pl.kipperthrower.astaroth.core.aspect;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
-import pl.kipperthrower.astaroth.core.services.ApplicationCacheService;
+import pl.kipperthrower.astaroth.core.domain.User;
+import pl.kipperthrower.astaroth.core.service.RuntimeErrorService;
+import pl.kipperthrower.astaroth.core.service.UserService;
 
-import freemarker.log.Logger;
 
-public abstract class AbstractController {
-
-	protected Logger log = Logger.getLogger(this.getClass().getName());
+@ControllerAdvice
+public class BaseControllerAdvice {
+	
+	private static  final Logger LOGGER = Logger.getLogger(BaseControllerAdvice.class);
 	
 	@Value( "#{wiringProperties['format.date']}" )
-	protected String dateFormat;
+	private String dateFormat;
 	@Value( "#{wiringProperties['buildEnv']}" )
-	protected String buildEnv;
-
+	private String buildEnv;
 	@Autowired
-	protected ApplicationCacheService cache;
+	private UserService userService;
+	@Autowired
+	private RuntimeErrorService runtimeErrorService;
 
+	
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleException(HttpServletRequest request, Exception ex) {
+		runtimeErrorService.logError(request, ex);
+		LOGGER.error(ex, ex);
+		return null;
+	}
+	
 	@InitBinder
 	public void allowEmptyDateBinding( WebDataBinder binder ) {
 	    binder.registerCustomEditor( Date.class, new CustomDateEditor( new SimpleDateFormat( dateFormat), true ));
@@ -41,8 +58,9 @@ public abstract class AbstractController {
 		}
 		return buildEnv;
 	}
+	
 	@ModelAttribute("username")
-	public String setUsername() {
+	public String getUsername() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		if ( username.equals("anonymousUser")) {
 			return null;
@@ -50,4 +68,11 @@ public abstract class AbstractController {
 			return username;
 		}
 	}
+	
+	@ModelAttribute("user")
+	public User getUser() {
+		return userService.getLoggedUser();
+	}
+	
+	
 }

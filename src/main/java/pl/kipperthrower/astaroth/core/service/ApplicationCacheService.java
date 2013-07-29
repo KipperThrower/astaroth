@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.core.services;
+package pl.kipperthrower.astaroth.core.service;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;

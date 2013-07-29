@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.core.services;
+package pl.kipperthrower.astaroth.core.service;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;

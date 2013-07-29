@@ -1,8 +1,7 @@
-package pl.kipperthrower.astaroth.core.listeners;
-
-import java.util.Date;
+package pl.kipperthrower.astaroth.core.listener;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.kipperthrower.astaroth.core.dao.DaoFactory;
 import pl.kipperthrower.astaroth.core.domain.AuthenticationEvent;
 import pl.kipperthrower.astaroth.core.domain.User;
-import pl.kipperthrower.astaroth.core.services.UserService;
+import pl.kipperthrower.astaroth.core.service.UserService;
 
 @Component
 public class AuthenticationListener implements
@@ -35,8 +34,8 @@ public class AuthenticationListener implements
 		if (event instanceof InteractiveAuthenticationSuccessEvent) {
 			return;
 		}
-		Authentication authentication = event.getAuthentication();
-		AuthenticationEvent authEvent = prepareAuthEvent(authentication);
+		
+		AuthenticationEvent authEvent = prepareAuthEvent(event);
 		daoFactory.getDao(AuthenticationEvent.class).save(authEvent);
 
 		String auditMessage = "Login attempt with username: "
@@ -46,11 +45,12 @@ public class AuthenticationListener implements
 		LOGGER.info(auditMessage);
 	}
 
-	private AuthenticationEvent prepareAuthEvent(Authentication authentication) {
+	private AuthenticationEvent prepareAuthEvent(AbstractAuthenticationEvent authEvent) {
+		Authentication authentication = authEvent.getAuthentication();
 		AuthenticationEvent event = new AuthenticationEvent();
 		event.setAuthenticated(authentication.isAuthenticated());
 		event.setUsername(authentication.getName());
-		event.setDate(new Date());
+		event.setDate(new DateTime(authEvent.getTimestamp() * 1000).toDate());
 		User user = userService.findByUsername(event.getUsername());
 		event.setUser(user);
 		if (authentication.getDetails() instanceof WebAuthenticationDetails) {

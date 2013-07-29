@@ -1,21 +1,24 @@
-package pl.kipperthrower.astaroth.core.controllers;
+package pl.kipperthrower.astaroth.core.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-public class HomeController extends AbstractController {
+public class HomeController {
+	
+	private static final Logger LOGGER = Logger.getLogger(HomeController.class);
 	
 	@RequestMapping(value={"/", "/index.html"})
 	public String index() {
 
-		log.info("/index.htm ");
+		LOGGER.info("/index.htm ");
 		return "home/index";
 	}
 	@RequestMapping("/protected.html")
 	public String protectedPage() {
-		log.info("/protected.htm ");
+		LOGGER.info("/protected.htm ");
 		return "home/protected";
 	}
 }

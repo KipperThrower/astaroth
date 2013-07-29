@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.core.controllers;
+package pl.kipperthrower.astaroth.core.controller;
 
 import javax.validation.Valid;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.kipperthrower.astaroth.core.commands.AddressCommand;
+import pl.kipperthrower.astaroth.core.command.AddressCommand;
 
 @Controller
 public class PRGValidatingDTOController {

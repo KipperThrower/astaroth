@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.core.commands;
+package pl.kipperthrower.astaroth.core.command;
 
 
 import org.hibernate.validator.constraints.NotEmpty;

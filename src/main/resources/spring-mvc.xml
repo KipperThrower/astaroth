@@ -14,9 +14,8 @@
 	<mvc:resources mapping="js/**" location="/public-resources/js/"/>
 	<mvc:resources mapping="css/**" location="/public-resources/css/"/>
 	<mvc:resources mapping="img/**" location="/public-resources/img/"/>
-	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" order="0"/>	
+	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" order="0"/>
 	
-		
 	<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:order="0"/>
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />

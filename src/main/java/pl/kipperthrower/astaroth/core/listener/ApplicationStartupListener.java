@@ -1,4 +1,4 @@
-package pl.kipperthrower.astaroth.core.listeners;
+package pl.kipperthrower.astaroth.core.listener;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.kipperthrower.astaroth.core.domain.Group;
 import pl.kipperthrower.astaroth.core.domain.User;
-import pl.kipperthrower.astaroth.core.services.UserService;
+import pl.kipperthrower.astaroth.core.service.UserService;
 
 import freemarker.log.Logger;
 
@@ -44,6 +44,7 @@ public class ApplicationStartupListener implements
 				admin = new User();
 				admin.setUsername(defaultAdminUsername);
 				admin.setPassword(defaultAdminPassword);
+				admin.setEmail(defaultAdminUsername + "@astaroth.com");
 
 				Group userGroup = new Group();
 				userGroup.setName(Group.ROLE_USER);

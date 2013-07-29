@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,6 +27,9 @@ public class User extends AbstractEntity implements UserDetails {
 	private String username;
 	@Column(nullable = false)
 	private String password;
+	@Email
+	@Column(nullable = false)
+	private String email;
 	@Column(nullable = false)
 	private String salt;
 	@Column(nullable = false)
@@ -109,6 +113,14 @@ public class User extends AbstractEntity implements UserDetails {
 			auths.add( (GrantedAuthority)group );
 		}
 		return auths;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }
