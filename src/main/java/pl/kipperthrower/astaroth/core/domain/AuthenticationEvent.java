@@ -5,28 +5,43 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Index;
 
 @Entity
+@Table(name = "authentication_events")
+@org.hibernate.annotations.Table(appliesTo = "authentication_events", indexes = {
+		@Index(name = "authentication_events_user_id_fk", columnNames = { "user_id" }),
+		@Index(name = "authentication_events_target_user_id_fk", columnNames = { "target_user_id" }) })
 public class AuthenticationEvent extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
+
 	@ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = User.class)
+	@JoinColumn(name = "user_id")
 	private User user;
 	@Column(nullable = false)
 	private String username;
 	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	@Column
+	@Column(name = "ip_address")
 	private String ipAddress;
-	@Column
+	@Column(name = "session_id")
 	private String sessionId;
 	@Column(nullable = false)
 	private boolean authenticated;
-	@Column
+	@Column(name = "event_type")
 	private String eventType;
-	@Column
-	private boolean isSwitch;
-	@Column
+	@Column(name = "switch_user", nullable = false)
+	private boolean switchUser;
+	@ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = User.class)
+	@JoinColumn(name = "target_user_id")
 	private User targetUser;
 
 	public User getUser() {
@@ -85,12 +100,12 @@ public class AuthenticationEvent extends AbstractEntity {
 		this.eventType = eventType;
 	}
 
-	public boolean isSwitch() {
-		return isSwitch;
+	public boolean isSwitchUser() {
+		return switchUser;
 	}
 
-	public void setSwitch(boolean isSwitch) {
-		this.isSwitch = isSwitch;
+	public void setSwitchUser(boolean switchUser) {
+		this.switchUser = switchUser;
 	}
 
 	public User getTargetUser() {

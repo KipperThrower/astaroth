@@ -2,23 +2,31 @@ package pl.kipperthrower.astaroth.core.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
+@org.hibernate.annotations.Table(appliesTo = "users", indexes = { @Index(name = "users_username", columnNames = { "username" }) })
 public class User extends AbstractEntity implements UserDetails {
-	
+
 	public static final String USERNAME = "username";
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +36,7 @@ public class User extends AbstractEntity implements UserDetails {
 	@Column(nullable = false)
 	private String password;
 	@Email
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String email;
 	@Column(nullable = false)
 	private String salt;
@@ -40,8 +48,15 @@ public class User extends AbstractEntity implements UserDetails {
 	private boolean credentialsNonExpired = true;
 	@Column(nullable = false)
 	private boolean accountNonLocked = true;
-	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+	@Column(name = "date_created", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateCreated;
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@JoinTable(name = "users_groups", 
+	joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "group_id"))
+	@OrderBy("id")
 	private List<Group> groups;
 
 	public String getUsername() {
@@ -63,10 +78,11 @@ public class User extends AbstractEntity implements UserDetails {
 	public String getSalt() {
 		return salt;
 	}
-	
+
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -108,9 +124,10 @@ public class User extends AbstractEntity implements UserDetails {
 	}
 
 	public Collection<GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>(groups.size());
-		for ( Group group : groups ) {
-			auths.add( (GrantedAuthority)group );
+		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>(
+				groups.size());
+		for (Group group : groups) {
+			auths.add((GrantedAuthority) group);
 		}
 		return auths;
 	}
@@ -122,5 +139,13 @@ public class User extends AbstractEntity implements UserDetails {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
 }

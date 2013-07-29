@@ -1,5 +1,6 @@
 package pl.kipperthrower.astaroth.core.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
@@ -40,6 +41,7 @@ public class UserService {
 		user.setSalt(String.valueOf(System.currentTimeMillis()));
 		user.setPassword(encoder.encodePassword(user.getPassword(),
 				user.getSalt()));
+		user.setDateCreated(new Date());
 		daoFactory.getDao(User.class).save(user);
 	}
 

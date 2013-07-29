@@ -4,16 +4,28 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Index;
 
 @Entity
 @Table(name = "runtime_errors")
+@org.hibernate.annotations.Table(appliesTo = "runtime_errors", 
+	indexes = { @Index(name = "runtime_errors_user_id_fk", columnNames = { "user_id" }) })
 public class RuntimeError extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
+
 	@Column
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	@ManyToMany
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
+	@JoinColumn(name = "user_id")
 	private User user;
 	@Column(name = "exception_class")
 	private String exceptionClass;
@@ -27,8 +39,8 @@ public class RuntimeError extends AbstractEntity {
 	private String httpMethod;
 	@Column(name = "query_string")
 	private String queryString;
-	@Column
-	private String body;
+	@Column(name = "request_body")
+	private String requestBody;
 	@Column
 	private String charset;
 
@@ -96,12 +108,12 @@ public class RuntimeError extends AbstractEntity {
 		this.queryString = queryString;
 	}
 
-	public String getBody() {
-		return body;
+	public String getRequestBody() {
+		return requestBody;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setRequestBody(String requestBody) {
+		this.requestBody = requestBody;
 	}
 
 	public String getCharset() {

@@ -46,7 +46,7 @@ public class RuntimeErrorService {
 		re.setCharset(request.getCharacterEncoding());
 		try {
 			String body = IOUtils.toString(request.getInputStream(), Charsets.UTF_8);
-			re.setBody(body);
+			re.setRequestBody(body);
 		} catch (IOException e) {
 			LOGGER.error(e, e);
 		}

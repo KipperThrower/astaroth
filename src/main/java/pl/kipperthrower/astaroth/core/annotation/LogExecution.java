@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
  * Mark method to log its execution
  * 
  * @author KipperThrower
- *
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target({ ElementType.METHOD })
 @Inherited
 @Documented
 public @interface LogExecution {
