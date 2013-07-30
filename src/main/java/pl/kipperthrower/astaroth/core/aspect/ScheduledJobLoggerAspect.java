@@ -4,23 +4,20 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.util.StopWatch;
 
 @Aspect
-public class TimeMeasureAspect extends Pointcuts {
+public class ScheduledJobLoggerAspect extends Pointcuts {
 
 	private static final Logger LOGGER = Logger
-			.getLogger(TimeMeasureAspect.class);
+			.getLogger(ScheduledJobLoggerAspect.class);
 
-	@Around("timeMeasureAnnotation()")
+	@Around("scheduledAnnotation()")
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-		StopWatch sw = new StopWatch(joinPoint.getTarget().getClass().getSimpleName());
 		try {
-			sw.start(joinPoint.getSignature().getName());
+			LOGGER.info("Job started");
 			return joinPoint.proceed();
 		} finally {
-			sw.stop();
-			LOGGER.info(sw.prettyPrint());
+			LOGGER.info("Job finished");
 		}
 	}
 

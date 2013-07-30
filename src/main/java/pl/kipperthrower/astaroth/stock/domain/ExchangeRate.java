@@ -12,13 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Index;
 
 import pl.kipperthrower.astaroth.core.domain.AbstractEntity;
 
 @Entity
-@Table(name = "exchange_rates")
+@Table(name = "exchange_rates", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"currency_id", "period", "date" }) })
 @org.hibernate.annotations.Table(appliesTo = "exchange_rates", indexes = {
 		@Index(name = "exchange_rates_currency_id_fk", columnNames = { "currency_id" }),
 		@Index(name = "exchange_rates_curr_per_dat", columnNames = {

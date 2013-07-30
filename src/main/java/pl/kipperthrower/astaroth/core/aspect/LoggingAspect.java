@@ -27,7 +27,7 @@ public class LoggingAspect extends Pointcuts {
 	private String getFormattedMessage(String messageTemplate,
 			ProceedingJoinPoint joinPoint) {
 		String methodName = joinPoint.getSignature().getName();
-		String className = joinPoint.getClass().getCanonicalName();
+		String className = joinPoint.getTarget().getClass().getCanonicalName();
 		String args = Arrays.toString(joinPoint.getArgs());
 		return String.format(messageTemplate, className, methodName, args);
 	}

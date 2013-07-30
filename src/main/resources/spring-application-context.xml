@@ -14,17 +14,15 @@
 
 	<util:properties id="wiringProperties" location="classpath:wiring.properties" />
     <context:property-placeholder location="classpath:wiring.properties" ignore-unresolvable="true"/>
-
 	<context:component-scan base-package="pl.kipperthrower.astaroth" />
-	
-	<aop:aspectj-autoproxy proxy-target-class="true" />
-	
-
 
 	<import resource="classpath:/spring-logging.xml" />
 	<import resource="classpath:/spring-datasource.xml" />
 	<import resource="classpath:/spring-mvc.xml" />
 	<import resource="classpath:/spring-security.xml" />
 	<import resource="classpath:/spring-cache.xml" />
+	<import resource="classpath:/spring-i18n.xml" />
+	<import resource="classpath:/spring-task.xml" />
+	<import resource="classpath:/spring-aop.xml" />
 
 </beans>

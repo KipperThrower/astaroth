@@ -46,7 +46,7 @@ public class BaseControllerAdvice {
 	}
 	
 	@InitBinder
-	public void allowEmptyDateBinding( WebDataBinder binder ) {
+	public void initBinding( WebDataBinder binder ) {
 	    binder.registerCustomEditor( Date.class, new CustomDateEditor( new SimpleDateFormat( dateFormat), true ));
 	    binder.registerCustomEditor( String.class, new StringTrimmerEditor( true ));
 	}

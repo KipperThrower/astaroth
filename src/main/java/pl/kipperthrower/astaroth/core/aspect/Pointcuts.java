@@ -15,5 +15,8 @@ public class Pointcuts {
 	
 	@Pointcut("execution(@pl.kipperthrower.astaroth.core.annotation.MeasureTime * *(..))")
 	public void timeMeasureAnnotation() {}
+	
+	@Pointcut("execution(@org.springframework.scheduling.annotation.Scheduled * *(..))")
+	public void scheduledAnnotation() {}
 
 }
