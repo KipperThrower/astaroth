@@ -12,6 +12,9 @@ import pl.kipperthrower.astaroth.core.domain.AbstractEntity;
 @Table(name = "currencies")
 @org.hibernate.annotations.Table(appliesTo = "currencies", indexes = { @Index(name = "currencies_code", columnNames = { "code" }) })
 public class Currency extends AbstractEntity {
+	
+	public static final String D_CODE = "code";
+	public static final String D_NAME = "name";
 
 	private static final long serialVersionUID = 1L;
 

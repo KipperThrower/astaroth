@@ -9,6 +9,10 @@ import pl.kipperthrower.astaroth.core.domain.AbstractEntity;
 @Entity
 @Table(name = "indicators")
 public class Indicator extends AbstractEntity {
+	
+	public static final String D_CODE = "code";
+	public static final String D_NAME = "name";
+	public static final String D_DESCRIPTION = "description";
 
 	private static final long serialVersionUID = 1L;
 

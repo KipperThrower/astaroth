@@ -26,6 +26,15 @@ import pl.kipperthrower.astaroth.core.domain.AbstractEntity;
 		@Index(name = "exchange_rates_curr_per_dat", columnNames = {
 				"currency_id", "period", "date" }) })
 public class ExchangeRate extends AbstractEntity {
+	
+	public static final String D_CURRENCY = "currency";
+	public static final String D_OPEN = "open";
+	public static final String D_HIGH = "high";
+	public static final String D_LOW = "low";
+	public static final String D_CLOSE = "close";
+	public static final String D_VOLUME = "volume";
+	public static final String D_DATE = "date";
+	public static final String D_PERIOD = "period";
 
 	private static final long serialVersionUID = 1L;
 

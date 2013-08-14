@@ -32,7 +32,7 @@ public class UserService {
 
 	public User findByUsername(String username) {
 		User user = daoFactory.getDao(User.class).findOneByCriteria(
-				Restrictions.eq(User.USERNAME, username));
+				Restrictions.eq(User.D_USERNAME, username));
 		return user;
 	}
 
@@ -61,8 +61,8 @@ public class UserService {
 		User user = findByUsername(name);
 		if (user != null) {
 			user.setAccountNonLocked(false);
+			daoFactory.getDao(User.class).save(user);
 		}
-		daoFactory.getDao(User.class).save(user);
 	}
 	
 	@Transactional

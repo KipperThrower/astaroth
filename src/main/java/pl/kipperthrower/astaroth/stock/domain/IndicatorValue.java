@@ -27,6 +27,12 @@ import pl.kipperthrower.astaroth.core.domain.AbstractEntity;
 		@Index(name = "indicator_values_ind_per_dat", columnNames = {
 				"indicator_id", "period", "date" }) })
 public class IndicatorValue extends AbstractEntity {
+	
+	public static final String D_INDICATOR = "indicator";
+	public static final String D_CURRENCY = "currency";
+	public static final String D_VALUE = "value";
+	public static final String D_PERIOD = "period";
+	public static final String D_DATE = "date";
 
 	private static final long serialVersionUID = 1L;
 

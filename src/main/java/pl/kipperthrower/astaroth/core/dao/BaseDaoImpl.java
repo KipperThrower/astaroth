@@ -58,6 +58,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public <S extends T> S save(S entity) {
 		try {
 			getSession().saveOrUpdate(entity);
+			getSession().flush();
 			return entity;
 		} catch (ConstraintViolationException ex) {
 			LOGGER.warn(ex);
@@ -133,7 +134,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
+		String hql = String.format("delete from %s where id = %d", getPersistentClass()
+				.getSimpleName(), id.longValue());
+		Query query = getSession().createQuery(hql);
+		query.executeUpdate();
 		
 	}
 	public void delete(T entity) {
@@ -170,8 +174,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	@Override
 	public T findOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (T) getSession().load(getPersistentClass(), id);
 	}
 
 	@Override

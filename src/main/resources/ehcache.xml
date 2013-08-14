@@ -8,7 +8,7 @@
 
     <cache name="generalUseCache" eternal="false"
         maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
-        timeToIdleSeconds="30" timeToLiveSeconds="3000"
+        timeToIdleSeconds="300" timeToLiveSeconds="3000"
         memoryStoreEvictionPolicy="LRU" />
         
 </ehcache>

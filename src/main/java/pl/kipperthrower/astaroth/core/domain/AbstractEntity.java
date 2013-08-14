@@ -9,6 +9,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 	
+	public static final String D_ID = "id";
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id

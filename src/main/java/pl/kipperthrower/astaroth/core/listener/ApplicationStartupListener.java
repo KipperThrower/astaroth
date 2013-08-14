@@ -31,6 +31,9 @@ public class ApplicationStartupListener implements
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Add standard admin user account if it doesn't exist in db
+	 */
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 

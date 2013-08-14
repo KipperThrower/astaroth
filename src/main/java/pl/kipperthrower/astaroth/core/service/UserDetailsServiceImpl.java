@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
 		User user = daoFactory.getDao(User.class).findOneByCriteria(
-				Restrictions.eq(User.USERNAME, username));
+				Restrictions.eq(User.D_USERNAME, username));
 		if (user == null) {
 			throw new UsernameNotFoundException(username + " not found");
 		}

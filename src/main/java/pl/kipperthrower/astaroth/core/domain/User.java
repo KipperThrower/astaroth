@@ -18,16 +18,25 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Index;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
+@Audited
 @Table(name = "users")
 @org.hibernate.annotations.Table(appliesTo = "users", indexes = { @Index(name = "users_username", columnNames = { "username" }) })
 public class User extends AbstractEntity implements UserDetails {
 
-	public static final String USERNAME = "username";
+	public static final String D_USERNAME = "username";
+	public static final String D_PASSWORD = "password";
+	public static final String D_EMAIL = "email";
+	public static final String D_SALT = "salt";
+	public static final String D_ENABLED = "enabled";
+	public static final String D_ACCOUNT_NON_EXPIRED = "accountNonExpired";
+	public static final String D_CREDENTIALS_NON_EXPIRED = "credentialsNonExpired";
+	public static final String D_DATE_CREATED = "dateCreated";
 
 	private static final long serialVersionUID = 1L;
 
